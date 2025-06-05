@@ -9,7 +9,8 @@
 <!--    <class>com.ibe6.section01.Test1</class>-->
 <!--    <class>com.ibe6.section01.Test2</class>-->
 <!--    <class>com.ibe6.section01.Test3</class>-->
-    <class>com.ibe6.section02.User</class>
+<!--    <class>com.ibe6.section02.User</class>-->
+    <class>com.ibe6.section03.User</class>
 
     <properties>
       <!-- Database connection settings -->

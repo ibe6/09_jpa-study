@@ -1,4 +1,4 @@
-package com.ibe6.section02;
+package com.ibe6.section03;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -7,10 +7,10 @@ import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Arrays;
 
+public class EntityEnumMappingTest {
 
-public class EntityColumnMappingTest {
     private static EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
@@ -34,54 +34,46 @@ public class EntityColumnMappingTest {
         entityManagerFactory.close();
     }
 
+
     @Test
-    public void 컬럼_매핑_테스트() {
-        User user = User.builder()
-//                .userNo(1)
+    public void enum_테스트() {
+        System.out.println("UserRole.values(): " + Arrays.toString(UserRole.values()));
+        System.out.println("UserRole.valueOf('ADMIN');" + UserRole.valueOf("ADMIN"));
+        System.out.println("UserRole.USER: " + UserRole.USER);
+        System.out.println("UserRole.USER.name(): " + UserRole.USER.name());
+        System.out.println("UserRole.USER.ordinal(): " + UserRole.USER.ordinal());
+    }
+
+    @Test
+    public void enum타입_매핑_테스트(){
+        User user1 = User.builder()
                 .userId("admin")
                 .userPwd("1234")
                 .nickname("관리자")
-                .phone("010-1231-2323")
-                .email("admin@gmail.com")
-                .address("서울시 강서구")
-//                .enrollDate(new Date())
+                .phone("010-2323-2111")
                 .enrollDate(LocalDateTime.now())
-                .userRole("ADMIN")
-                .status("Y")
+                .userRole(UserRole.ADMIN)
                 .build();
 
         User user2 = User.builder()
-//                .userNo(1)
                 .userId("user01")
                 .userPwd("1234")
                 .nickname("사용자")
-                .phone("010-1222-2323")
-                .email("user01@gmail.com")
-                .address("서울시 관악구")
-//                .enrollDate(new Date())
+                .phone("010-2366-2111")
                 .enrollDate(LocalDateTime.now())
-                .userRole("USER")
-                .status("Y")
+                .userRole(UserRole.USER)
                 .build();
 
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
 
         try {
-            entityManager.persist(user);
+            entityManager.persist(user1);
             entityManager.persist(user2);
             entityTransaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
             entityTransaction.rollback();
         }
-
-    /*
-
-
-     */
-
     }
-
-
 }
