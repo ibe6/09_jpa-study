@@ -1,4 +1,4 @@
-package com.ibe6.springjpa.menu.config;
+package com.ibe6.springjpa;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

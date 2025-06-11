@@ -1,9 +1,6 @@
 package com.ibe6.springjpa.menu.entitiy;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
     @NoArgsConstructor
@@ -16,6 +13,7 @@ import lombok.*;
     @Table(name = "tbl_menu")
     public class Menu {
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "menu_code")
         private Integer menuCode;
         @Column(name = "menu_name")

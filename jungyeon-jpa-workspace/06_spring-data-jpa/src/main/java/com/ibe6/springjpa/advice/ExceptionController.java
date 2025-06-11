@@ -1,4 +1,4 @@
-package com.ibe6.springjpa.menu.advice;
+package com.ibe6.springjpa.advice;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
