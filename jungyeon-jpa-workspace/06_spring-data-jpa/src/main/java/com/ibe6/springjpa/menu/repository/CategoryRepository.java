@@ -13,4 +13,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     List<Category> findAllSubCategory();
 
 
+    // 위의 Native Query를 쿼리 메소드로 대체
+    List<Category> findByRefCategoryCodeIsNotNullOrderByCategoryCodeDesc();
+
 }

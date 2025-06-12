@@ -124,14 +124,16 @@ public class MenuController {
     }
 
     @GetMapping("/search")
-    public String searchMenu(String type, String query){
-
+    public String searchMenu(String type, String query) {//@requestParam 생략됨
         List<MenuDto> menuList = new ArrayList<>();
-        if("price".equals(type)){
+        if("price".equals(type)){ // type이 혹시 null일 수도 있으니까 npe 피하기 위해 비교할 값을 앞에다 적는편
             menuList = menuService.findMenuByPrice(Integer.parseInt(query));
-        }else if("name".equals(type)){
-
+        } else if ("name".equals(type)){
+            menuList = menuService.findMenuByMenuName(query);
+        } else if ("both".equals(type)) { // String query = "10000,마늘"
+            menuList = menuService.findMenuByPriceAndMenuName(query.split(",")); // String[] = ["10000", "마늘"]
         }
+        menuList.forEach(System.out::println);
 
         return "redirect:/";
     }

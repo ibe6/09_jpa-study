@@ -94,7 +94,10 @@ public class MenuService {
     // 3. Native Query 사용
     public List<CategoryDto> findCategoryList() {
         //List<Category> categoryList = categoryRepository.findAll(); // 상위 카테고리 포함 전체 조회
-        List<Category> categoryList = categoryRepository.findAllSubCategory();
+        //List<Category> categoryList = categoryRepository.findAllSubCategory();
+
+        // * 쿼리메소드 대체
+        List<Category> categoryList = categoryRepository.findByRefCategoryCodeIsNotNullOrderByCategoryCodeDesc();
 
         // List<Category> => List<CategoryDto>
         return categoryList.stream()
@@ -134,6 +137,41 @@ public class MenuService {
 
     public List<MenuDto> findMenuByPrice(int price) {
 
-        // 전달된 가격값과 일치하는 메뉴 조회 (WHERE menu_price = xxx) 
+        // 전달된 가격값과 일치하는 메뉴 조회 (WHERE menu_price = xxx)
+        // * Native Query + 파라미터 바인딩
+        // List<Menu> menuList = menuRepository.findByMenuPrice(price);
+
+        List<Menu> menuList
+//         = menuRepository.findByMenuPriceEquals(price);
+//         = menuRepository.findByMenuPriceGreaterThanEqual(price);
+//         = menuRepository.findByMenuPriceGreaterThanEqual(price, Sort.by("menuPrice").descending());
+                = menuRepository.findByMenuPriceGreaterThanEqualOrderByMenuPriceDesc(price);
+
+
+        return menuList.stream()
+                .map(menu -> modelMapper.map(menu,MenuDto.class))
+                .toList();
     }
+
+    public List<MenuDto> findMenuByMenuName(String name) {
+        // 전달된 메뉴명이 포함된 메뉴 목록 조회
+        List<Menu> menuList = menuRepository.findByMenuNameContaining(name);
+
+        return menuList.stream()
+                .map(menu -> modelMapper.map(menu,MenuDto.class))
+                .toList();
+    }
+
+    public List<MenuDto> findMenuByPriceAndMenuName(String[] queryArr){
+        // 전달된 가격 이상 그리고 메뉴명이 포함되어있는
+        
+        List<Menu> menuList = menuRepository.findByMenuPriceGreaterThanEqualAndMenuNameContaining(Integer.parseInt(queryArr[0]), queryArr[1]);
+        return menuList.stream()
+                .map(menu -> modelMapper.map(menu,MenuDto.class))
+                .toList();
+    }
+
+
+
 }
+
