@@ -118,7 +118,7 @@ public class MenuController {
     }
 
     @GetMapping("/remove")
-    public String removeMene(int code){
+    public String removeMeue(int code){
         menuService.removeMenu(code);
         return  "redirect:/";
     }

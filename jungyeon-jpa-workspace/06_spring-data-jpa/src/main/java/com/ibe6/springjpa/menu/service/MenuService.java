@@ -164,7 +164,7 @@ public class MenuService {
 
     public List<MenuDto> findMenuByPriceAndMenuName(String[] queryArr){
         // 전달된 가격 이상 그리고 메뉴명이 포함되어있는
-        
+
         List<Menu> menuList = menuRepository.findByMenuPriceGreaterThanEqualAndMenuNameContaining(Integer.parseInt(queryArr[0]), queryArr[1]);
         return menuList.stream()
                 .map(menu -> modelMapper.map(menu,MenuDto.class))
