@@ -132,4 +132,8 @@ public class MenuService {
         menuRepository.delete(menu);
     }
 
+    public List<MenuDto> findMenuByPrice(int price) {
+
+        // 전달된 가격값과 일치하는 메뉴 조회 (WHERE menu_price = xxx) 
+    }
 }

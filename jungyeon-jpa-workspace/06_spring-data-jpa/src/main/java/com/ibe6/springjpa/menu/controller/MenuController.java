@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 @Slf4j
@@ -122,4 +123,16 @@ public class MenuController {
         return  "redirect:/";
     }
 
+    @GetMapping("/search")
+    public String searchMenu(String type, String query){
+
+        List<MenuDto> menuList = new ArrayList<>();
+        if("price".equals(type)){
+            menuList = menuService.findMenuByPrice(Integer.parseInt(query));
+        }else if("name".equals(type)){
+
+        }
+
+        return "redirect:/";
+    }
 }
